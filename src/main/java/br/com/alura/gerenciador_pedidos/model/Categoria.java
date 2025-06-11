@@ -1,9 +1,9 @@
 package br.com.alura.gerenciador_pedidos.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Categoria {
@@ -14,11 +14,23 @@ public class Categoria {
 
     private String nome;
 
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Produto> produtos = new ArrayList<Produto>();
+
+
     public Categoria(String nome) {
         this.nome = nome;
     }
 
     public Categoria () {}
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
 
     public Long getId() {
         return id;

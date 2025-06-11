@@ -9,18 +9,45 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
+
     @Column(unique = true, nullable = false)
     private String nome;
 
     @Column(name = "valor")
     private double preco;
 
-    public Produto(double preco, String nome) {
-        this.preco = preco;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Produto(String nome, double preco, Categoria categoria) {
         this.nome = nome;
+        this.preco = preco;
+        this.categoria = categoria;
     }
 
     public Produto() {}
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        // Associar com a chave estrangeira de serie_id
+        //fornecedor.forEach(f -> f.setSerie(this));
+        this.fornecedor = fornecedor;
+    }
 
     public String getNome() {
         return nome;
@@ -54,5 +81,6 @@ public class Produto {
                 ", preco=" + preco +
                 '}';
     }
+
 }
 

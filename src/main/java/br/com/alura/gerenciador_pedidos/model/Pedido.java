@@ -1,18 +1,25 @@
 package br.com.alura.gerenciador_pedidos.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id_pedido;
+    private Long id;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name =  "pedido_produto",
+            joinColumns = @JoinColumn(name = "pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id")
+    )
+    private List<Produto> produtos;
+
     private LocalDate data;
 
     public Pedido(LocalDate data) {
@@ -21,12 +28,20 @@ public class Pedido {
 
     public Pedido() {}
 
-    public Long getId_pedido() {
-        return id_pedido;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setId_pedido(Long id_pedido) {
-        this.id_pedido = id_pedido;
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDate getData() {
