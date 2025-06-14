@@ -33,20 +33,21 @@ public class Main {
         Categoria categoriaLivros = new Categoria("Livros");
 
         // Criar fornecedor
-        Fornecedor fornecedor = new Fornecedor("Fornecedor");
+        Fornecedor fornecedorEsportivo = new Fornecedor("Fornecedor Esportivos");
+        Fornecedor fornecedorLiterario = new Fornecedor("Fornecedor Literario");
 
         // Criar produtos e associar às categorias e ao fornecedor
         Produto produto1 = new Produto("Skate", 3500.0, categoriaEsportiva);
-        produto1.setFornecedor(fornecedor);
+        produto1.setFornecedor(fornecedorEsportivo);
 
         Produto produto2 = new Produto("Raquete", 2500.0, categoriaEsportiva);
-        produto2.setFornecedor(fornecedor);
+        produto2.setFornecedor(fornecedorEsportivo);
 
         Produto produto3 = new Produto("Livro de Java", 100.0, categoriaLivros);
-        produto3.setFornecedor(fornecedor);
+        produto3.setFornecedor(fornecedorLiterario);
 
         Produto produto4 = new Produto("Livro de Spring Boot", 150.0, categoriaLivros);
-        produto4.setFornecedor(fornecedor);
+        produto4.setFornecedor(fornecedorLiterario);
 
         // Associar produtos às categorias
         categoriaEsportiva.setProdutos(List.of(produto1, produto2));
@@ -60,7 +61,8 @@ public class Main {
 //        pedido.setProdutos(List.of(produto1, produto3)); // Exemplo: comprando Skate e Livro de Java
 
         // salvar fornecedor
-        fornecedorRepository.save(fornecedor);
+        fornecedorRepository.save(fornecedorEsportivo);
+        fornecedorRepository.save(fornecedorLiterario);
 
         // 2. Salvar as categorias (e os produtos em cascata)
         categoriaRepository.saveAll(List.of(categoriaEsportiva, categoriaLivros));
